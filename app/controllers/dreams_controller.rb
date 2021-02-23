@@ -2,7 +2,8 @@ class DreamsController < ApplicationController
   before_action :set_dream, only: [:show, :update, :destroy]
 
   def index
-    dreams = Category.find_by(id: params[:category_id]).dreams
+    dreams = Dream.all
+    # dreams = Category.find_by(id: params[:category_id]).dreams
     render json: dreams.to_json(except: [:created_at, :updated_at] )
   end
     
