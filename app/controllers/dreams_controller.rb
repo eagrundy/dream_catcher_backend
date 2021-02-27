@@ -12,8 +12,9 @@ class DreamsController < ApplicationController
   end
 
   def create
-    category = Category.find_by(id: params[:category_id])
-    dream = category.dreams.build(dream_params)
+    # category = Category.find_by(id: params[:category_id])
+    dream = Dream.create(dream_params)
+    # dream = category.dreams.build(dream_params)
     if dream.save
       render json: dream
     else
@@ -30,7 +31,7 @@ class DreamsController < ApplicationController
   end
     
   def destroy
-     dream.destroy
+     dream.delete
   end
 
 
