@@ -1,33 +1,48 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :create]
+  # before_action :set_category, only: [:show]
     
   def index
     categories = Category.all 
-    render json: categories.to_json(except: [:created_at, :updated_at] )
-        #  , include: {category: {only: [:name]} }
+    render json: categories, only: [:id, :name]
+    # .to_json(except: [:created_at, :updated_at] )
+    
   end
 
   def show
-    render json: category.to_json(except: [:created_at, :updated_at] )
+    category = Category.find_by(id: params[:id])
+    render json: { id: category.id, name: category.name}
   end
 
-  def create
-    category = Category.create(category_params)
-    if category.save
-      render json: category
-    else
-      render json: category.errors, status: :unprocessable_entity
-    end
-  end
+  # def create
+  #   # binding.pry
+  #   category = Category.create(category_params)
+  #   if category.save
+  #     render json: category
+  #   else
+  #     render json: category.errors, status: :unprocessable_entity
+  #   end
+  # end
 
-  private
+  # def update
+  #   if category.update(category_params)
+  #     render json: category
+  #   else
+  #     render json: category.errors, status: :unprocessable_entity
+  #   end  
+  # end
 
-  def set_category
-    category = Category.find(params[:id])
-  end
+  # def destroy
+  #   category.delete
+  # end
 
-  def category_params
-    params.require(:category).permit(:name)
-  end
+  # private
+
+  # # def set_category
+  # #   category = Category.find(params[:id])
+  # # end
+
+  # def category_params
+  #   params.require(:category).permit(:name)
+  # end
 
 end
