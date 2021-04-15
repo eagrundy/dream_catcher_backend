@@ -1,7 +1,7 @@
 class DreamsController < ApplicationController
 
   def index
-    dreams = Dream.all
+    dreams = Dream.all.order('created_at DESC')
     render json: DreamSerializer.new(dreams)
   end
 
